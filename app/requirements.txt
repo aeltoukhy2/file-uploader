@@ -1,0 +1,6 @@
+###### Requirements without Version Specifiers ######
+# pytest
+Flask
+
+###### Requirements with Version Specifiers ######
+minio == 7.1.2

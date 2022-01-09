@@ -1,0 +1,25 @@
+# Install venv for Linux
+python3 -m venv .venv
+source .venv/bin/activate
+
+# Docker build and run
+docker build --tag fileuploader .
+docker run fileuploader
+
+docker build -f Dockerfile -t file-uploader:latest .
+docker run -p 5001:5000 file-uploader
+
+# Helm installation
+curl https://baltocdn.com/helm/signing.asc | sudo apt-key add -
+sudo apt-get install apt-transport-https --yes
+echo "deb https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
+sudo apt-get update
+sudo apt-get install helm
+
+# Install minio
+helm repo add minio https://charts.min.io/
+helm install --namespace development --set rootUser=rootuser,rootPassword=rootpass123 --generate-name minio/minio
+
+kubectl create -f https://raw.githubusercontent.com/kubernetes/examples/master/staging/storage/minio/minio-standalone-pvc.yaml
+kubectl create -f https://raw.githubusercontent.com/kubernetes/examples/master/staging/storage/minio/minio-standalone-deployment.yaml
+kubectl create -f https://raw.githubusercontent.com/kubernetes/examples/master/staging/storage/minio/minio-standalone-service.yaml

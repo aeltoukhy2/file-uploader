@@ -1,0 +1,31 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: file-uploader
+  namespace: argocd
+  annotations:
+    argocd-image-updater.argoproj.io/image-list: 'alias=cr_name'
+    argocd-image-updater.argoproj.io/write-back-method: 'git:secret:argocd/git-creds'
+    argocd-image-updater.argoproj.io/alias.update-strategy: latest
+    # argocd-image-updater.argoproj.io/myimage.allow-tags: regexp:dev-^[0-9a-f]{7}$
+    argocd-image-updater.argoproj.io/git-branch: main
+spec:
+  destination:
+    name: ''
+    namespace: development
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: deployments
+    repoURL: 'https://github.com/aeltoukhy2/file-uploader.git'
+    targetRevision: main
+    kustomize:
+      images: []
+  project: dev
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+

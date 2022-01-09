@@ -1,0 +1,16 @@
+--- 
+apiVersion: v1
+kind: Service
+metadata:
+  name: file-uploader
+  namespace: development
+  labels:
+    app: file-uploader
+spec:
+  selector:
+    app: file-uploader
+  ports:
+  - protocol: "TCP"
+    port: 6000
+    targetPort: 5000
+  type: LoadBalancer

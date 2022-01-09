@@ -1,0 +1,32 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: file-uploader
+  namespace: development
+  labels:
+    app: file-uploader
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: file-uploader
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate        
+  template:
+    metadata:
+      annotations: {}
+      labels:
+        app: file-uploader
+    spec:
+      containers:
+        - name: file-uploader
+          image: file-uploader
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 5000
+              protocol: TCP

@@ -24,7 +24,8 @@ spec:
     spec:
       containers:
         - name: file-uploader
-          image: file-uploader
+          # image: file-uploader
+          image: ghcr.io/aeltoukhy2/file-uploader:main
           imagePullPolicy: IfNotPresent
           ports:
             - name: http

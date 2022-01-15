@@ -8,9 +8,9 @@ def uploadFile():
     file_name = "uploded_file_" + str(uuid.uuid1()) + ".txt"
 
     client = Minio(
-        "localhost:9000",
-        access_key="minioadmin",
-        secret_key="minioadmin",
+        "minio-service.minio.svc.cluster.local:9000",
+        access_key="minio",
+        secret_key="minio123",
         secure=False  # For demo purposes only
     )
 

@@ -3,9 +3,6 @@ python3 -m venv .venv
 source .venv/bin/activate
 
 # Docker build and run
-docker build --tag fileuploader .
-docker run fileuploader
-
 docker build -f Dockerfile -t file-uploader:latest .
 docker run -p 5001:5000 file-uploader
 
